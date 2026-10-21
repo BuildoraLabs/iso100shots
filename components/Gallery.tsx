@@ -72,7 +72,7 @@ export function Gallery({ items = gallery }: GalleryProps) {
               <button
                 key={image.src}
                 type="button"
-                className="group mb-4 inline-block w-full break-inside-avoid overflow-hidden border border-white/10 bg-white/[0.035] text-left shadow-[0_18px_55px_rgba(0,0,0,0.28)] transition duration-300 hover:-translate-y-1 hover:border-white/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                className="group relative mb-4 inline-block w-full break-inside-avoid overflow-hidden border border-white/10 bg-white/[0.035] text-left shadow-[0_18px_55px_rgba(0,0,0,0.28)] transition duration-300 hover:-translate-y-1 hover:border-white/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
                 onClick={() => setSelectedImage(image)}
               >
                 <img
