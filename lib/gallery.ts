@@ -17,6 +17,15 @@ export type GalleryItem = {
 
 export const gallery: GalleryItem[] = [
   {
+    src: "https://res.cloudinary.com/ptgwbnv7/image/upload/v1792506421/NIK_1481.jpg",
+    width: 2048,
+    height: 1365,
+    category: "landscapes-light",
+    title: "NIK 1481",
+    alt: "Landscape photograph hosted on Cloudinary.",
+    isHero: false
+  },
+  {
     src: "images/people-stories/a-moment-of-freedom.jpg",
     width: 1365,
     height: 2048,
