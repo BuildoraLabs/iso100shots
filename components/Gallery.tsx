@@ -65,7 +65,13 @@ export function Gallery({ items = gallery }: GalleryProps) {
 
       <div className="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8">
         {/* CSS columns keep a natural masonry flow; no fixed-height rows or image cropping. */}
-        <div className="columns-1 gap-5 sm:columns-2 lg:columns-3 2xl:columns-3">
+        <div
+          className={
+            activeFilter === "all"
+              ? "columns-1 gap-5 sm:columns-2 lg:columns-3 2xl:columns-3"
+              : "columns-1 gap-5 sm:columns-2 lg:columns-2 2xl:columns-2"
+          }
+        >
           {visibleImages.map((image) => {
             const isCloudinary = /^(https?:)?\/\/res\.cloudinary\.com\//i.test(image.src);
             return (
