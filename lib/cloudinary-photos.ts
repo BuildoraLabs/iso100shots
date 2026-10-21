@@ -3,6 +3,8 @@ import type { GalleryCategory, GalleryItem } from "@/lib/gallery";
 type CloudinaryAsset = {
   public_id: string;
   secure_url: string;
+  width: number;
+  height: number;
   tags?: string[];
   context?: {
     custom?: Record<string, string>;
@@ -32,11 +34,6 @@ function titleFromPublicId(publicId: string): string {
     .replace(/\s+/g, " ")
     .trim()
     .replace(/\b\w/g, (character) => character.toUpperCase());
-}
-
-function optimizedUrl(url: string): string {
-  // Keep Cloudinary's versioned URL and insert automatic format/quality delivery.
-  return url.replace("/image/upload/", "/image/upload/f_auto,q_auto/");
 }
 
 export async function getPublishedCloudinaryPhotos(): Promise<GalleryItem[]> {
@@ -77,7 +74,9 @@ export async function getPublishedCloudinaryPhotos(): Promise<GalleryItem[]> {
         const custom = asset.context?.custom ?? {};
         const title = custom.title?.trim() || titleFromPublicId(asset.public_id);
         return {
-          src: optimizedUrl(asset.secure_url),
+          src: asset.secure_url,
+          width: asset.width,
+          height: asset.height,
           category: categoryForAsset(asset),
           title,
           alt: custom.alt?.trim() || title,
