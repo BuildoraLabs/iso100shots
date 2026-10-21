@@ -141,6 +141,13 @@ export const gallery: GalleryItem[] = [
     isHero: true
   },
   {
+  src: "https://res.cloudinary.com/ptgwbnv7/image/upload/v1792506421/NIK_1481.jpg",
+  category: "landscapes-light",
+  title: "Sunrise Silhouette",
+  alt: "Tree silhouette against a vivid orange and pink sunrise over dark hills of Thekkady.",
+  isHero: false
+},
+  {
     src: "images/landscapes-light/where-the-water-rests.jpg",
     category: "landscapes-light",
     title: "Where The Water Rests",
