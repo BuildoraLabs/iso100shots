@@ -113,26 +113,14 @@ export default async function Home() {
             light and real expressions. My work focuses on authenticity,
             simplicity, and unnoticed details from daily life.
           </p>
-          <div className="mt-8 space-y-3 text-base leading-7 text-white/58">
-            <p>Available for collaborations & projects</p>
-            <p>
-              Email:{" "}
-              <a
-                className="text-white/78 transition hover:text-white"
-                href="mailto:iso100shots.shop@gmail.com"
-              >
-                iso100shots.shop@gmail.com
-              </a>
-            </p>
-          </div>
         </section>
         <section
           id="contact"
           className="fade-in scroll-mt-20 border-y border-white/10 bg-cover bg-center px-5 py-20 text-center sm:px-6 md:py-24"
-          style={{
+         style={{
             backgroundImage:
-              "linear-gradient(rgba(0,0,0,0.58), rgba(0,0,0,0.84)), url('https://res.cloudinary.com/ptgwbnv7/image/upload/f_auto,q_auto,w_2000/v1792506421/NIK_1481.jpg')"
-          }}
+              "linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.72)), url('/images/nature-details/purple-lotus-closeup.jpg')"
+            }}
         >
           <p className="mb-4 text-sm uppercase tracking-[0.32em] text-white/45">Contact</p>
           <h2 className="text-3xl font-medium text-fog md:text-5xl">Let&apos;s work together</h2>
