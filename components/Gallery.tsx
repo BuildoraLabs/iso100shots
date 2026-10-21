@@ -91,7 +91,7 @@ export function Gallery({ items = gallery }: GalleryProps) {
                 />
                 <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent p-4 opacity-100 transition duration-300 sm:p-5 lg:opacity-0 lg:group-hover:opacity-100">
                   <span className="line-clamp-2 block text-sm font-medium leading-5 text-white sm:text-base">
-                    {isCloudinary ? titleFromImageUrl(image.src, image.title) : image.title}
+                    {image.title}
                   </span>
                   <span className="mt-1 block text-[0.68rem] uppercase tracking-[0.16em] text-white/80 sm:text-xs sm:tracking-[0.2em]">
                     {categoryLabels[image.category]}
