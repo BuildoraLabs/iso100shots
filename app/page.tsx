@@ -12,10 +12,39 @@ import {
   socialLinks
 } from "@/lib/seo";
 
+function normalizeAssetKey(src: string): string {
+  const withoutQuery = src.split("?")[0];
+  const cloudinary = withoutQuery.match(/^(https?:\/\/res\.cloudinary\.com\/[^/]+\/image\/upload\/)\/(.*)$/i);
+  const normalized = withoutQuery
+    .replace(/^(https?:\/\/res\.cloudinary\.com\/[^/]+\/image\/upload\/)\//i, "$1")
+    .replace(/\/image\/upload\/(?:[^/]+\/)*(?=v\d+\/)/i, "/image/upload/");
+  return (cloudinary ? normalized : normalized).toLowerCase();
+}
+
+function galleryKey(src: string): string {
+  if (/^https?:\/\//i.test(src)) {
+    const normalized = normalizeAssetKey(src);
+    const cloudinaryPublicId = normalized.match(/res\.cloudinary\.com\/[^/]+\/image\/upload\/(?:v\d+\/)?(.+)$/i);
+    if (cloudinaryPublicId) return `cloudinary:${cloudinaryPublicId[1].replace(/\.[a-z0-9]+$/i, "")}`;
+    return normalized;
+  }
+  return src.replace(/^\/+/, "").toLowerCase();
+}
+
+function mergeGallery(cloudinaryPhotos: typeof gallery, localPhotos: typeof gallery) {
+  const seen = new Set<string>();
+  return [...cloudinaryPhotos, ...localPhotos].filter((image) => {
+    const key = galleryKey(image.src);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
 export default async function Home() {
   const cloudinaryPhotos = await getPublishedCloudinaryPhotos();
-  // Cloudinary photos appear first; the bundled gallery remains as a permanent fallback.
-  const allGallery = [...cloudinaryPhotos, ...gallery];
+  // Cloudinary items take priority; local assets fill gaps without duplicating the same image.
+  const allGallery = mergeGallery(cloudinaryPhotos, gallery);
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -117,10 +146,10 @@ export default async function Home() {
         <section
           id="contact"
           className="fade-in scroll-mt-20 border-y border-white/10 bg-cover bg-center px-5 py-20 text-center sm:px-6 md:py-24"
-         style={{
+          style={{
             backgroundImage:
               "linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.72)), url('/images/nature-details/purple-lotus-closeup.jpg')"
-            }}
+          }}
         >
           <p className="mb-4 text-sm uppercase tracking-[0.32em] text-white/45">Contact</p>
           <h2 className="text-3xl font-medium text-fog md:text-5xl">Let&apos;s work together</h2>
