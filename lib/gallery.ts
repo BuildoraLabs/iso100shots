@@ -21,8 +21,8 @@ export const gallery: GalleryItem[] = [
     width: 2048,
     height: 1365,
     category: "landscapes-light",
-    title: "NIK 1481",
-    alt: "Landscape photograph hosted on Cloudinary.",
+    title: "Sunrise",
+    alt: "Sunrise over a dark mountain landscape, with vivid orange and red clouds in the sky.",
     isHero: false
   },
   {
