@@ -36,6 +36,14 @@ function titleFromPublicId(publicId: string): string {
     .replace(/\b\w/g, (character) => character.toUpperCase());
 }
 
+function canonicalCloudinaryUrl(url: string): string {
+  // Different delivery transformations can point to the same underlying asset.
+  return url
+    .replace(/\/image\/upload\/(?:[^/]+\/)*(?=v\d+\/)/, "/image/upload/")
+    .split("?")[0]
+    .toLowerCase();
+}
+
 export async function getPublishedCloudinaryPhotos(): Promise<GalleryItem[]> {
   const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
   const apiKey = process.env.CLOUDINARY_API_KEY;
@@ -58,7 +66,6 @@ export async function getPublishedCloudinaryPhotos(): Promise<GalleryItem[]> {
         max_results: 100,
         with_field: ["context", "tags"]
       }),
-      // New uploads appear on the site after a short cache window.
       next: { revalidate: 60 }
     });
 
@@ -68,8 +75,16 @@ export async function getPublishedCloudinaryPhotos(): Promise<GalleryItem[]> {
     }
 
     const data = (await response.json()) as { resources?: CloudinaryAsset[] };
+    const seen = new Set<string>();
+
     return (data.resources ?? [])
       .filter((asset) => Boolean(asset.secure_url && asset.public_id))
+      .filter((asset) => {
+        const key = asset.public_id.toLowerCase() || canonicalCloudinaryUrl(asset.secure_url);
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      })
       .map((asset) => {
         const custom = asset.context?.custom ?? {};
         const title = custom.title?.trim() || titleFromPublicId(asset.public_id);
