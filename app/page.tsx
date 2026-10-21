@@ -3,7 +3,7 @@ import { Gallery } from "@/components/Gallery";
 import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
 import { gallery, heroImage } from "@/lib/gallery";
-import { getPublishedSupabasePhotos } from "@/lib/supabase-photos";
+import { getPublishedCloudinaryPhotos } from "@/lib/cloudinary-photos";
 import {
   absoluteUrl,
   photographerName,
@@ -13,8 +13,9 @@ import {
 } from "@/lib/seo";
 
 export default async function Home() {
-  const supabasePhotos = await getPublishedSupabasePhotos();
-  const allGallery = [...supabasePhotos, ...gallery];
+  const cloudinaryPhotos = await getPublishedCloudinaryPhotos();
+  // Cloudinary photos appear first; the bundled gallery remains as a permanent fallback.
+  const allGallery = [...cloudinaryPhotos, ...gallery];
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -113,18 +114,6 @@ export default async function Home() {
             simplicity, and unnoticed details from daily life.
           </p>
           <div className="mt-8 space-y-3 text-base leading-7 text-white/58">
-            <p>Recognized as a Guru (Level 9) on GuruShots</p>
-            <p>
-              View my work:{" "}
-              <a
-                className="text-white/78 underline decoration-white/25 underline-offset-4 transition hover:text-white hover:decoration-white/60"
-                href="https://gurushots.com/Kunal.K7/photos"
-                target="_blank"
-                rel="noreferrer"
-              >
-                gurushots.com/Kunal.K7/photos
-              </a>
-            </p>
             <p>Available for collaborations & projects</p>
             <p>
               Email:{" "}
@@ -139,7 +128,11 @@ export default async function Home() {
         </section>
         <section
           id="contact"
-          className="fade-in scroll-mt-20 border-y border-white/10 px-5 py-20 text-center sm:px-6 md:py-24"
+          className="fade-in scroll-mt-20 border-y border-white/10 bg-cover bg-center px-5 py-20 text-center sm:px-6 md:py-24"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(0,0,0,0.58), rgba(0,0,0,0.84)), url('https://res.cloudinary.com/ptgwbnv7/image/upload/f_auto,q_auto,w_2000/v1792506421/NIK_1481.jpg')"
+          }}
         >
           <p className="mb-4 text-sm uppercase tracking-[0.32em] text-white/45">Contact</p>
           <h2 className="text-3xl font-medium text-fog md:text-5xl">Let&apos;s work together</h2>
@@ -162,17 +155,6 @@ export default async function Home() {
                 rel="noreferrer"
               >
                 instagram.com/iso.100.shots
-              </a>
-            </p>
-            <p>
-              500px:{" "}
-              <a
-                className="transition hover:text-white"
-                href="https://500px.com/p/KunalKapoor"
-                target="_blank"
-                rel="noreferrer"
-              >
-                500px.com/p/KunalKapoor
               </a>
             </p>
           </div>
