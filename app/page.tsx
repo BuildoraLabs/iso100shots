@@ -2,7 +2,7 @@ import { Footer } from "@/components/Footer";
 import { Gallery } from "@/components/Gallery";
 import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
-import { gallery, heroImage } from "@/lib/gallery";
+import { gallery, heroImage, type GalleryItem } from "@/lib/gallery";
 import { getPublishedCloudinaryPhotos } from "@/lib/cloudinary-photos";
 import {
   absoluteUrl,
@@ -12,31 +12,36 @@ import {
   socialLinks
 } from "@/lib/seo";
 
-function normalizeAssetKey(src: string): string {
-  const withoutQuery = src.split("?")[0];
-  const cloudinary = withoutQuery.match(/^(https?:\/\/res\.cloudinary\.com\/[^/]+\/image\/upload\/)\/(.*)$/i);
-  const normalized = withoutQuery
-    .replace(/^(https?:\/\/res\.cloudinary\.com\/[^/]+\/image\/upload\/)\//i, "$1")
-    .replace(/\/image\/upload\/(?:[^/]+\/)*(?=v\d+\/)/i, "/image/upload/");
-  return (cloudinary ? normalized : normalized).toLowerCase();
-}
-
-function galleryKey(src: string): string {
-  if (/^https?:\/\//i.test(src)) {
-    const normalized = normalizeAssetKey(src);
-    const cloudinaryPublicId = normalized.match(/res\.cloudinary\.com\/[^/]+\/image\/upload\/(?:v\d+\/)?(.+)$/i);
-    if (cloudinaryPublicId) return `cloudinary:${cloudinaryPublicId[1].replace(/\.[a-z0-9]+$/i, "")}`;
-    return normalized;
+function assetKeys(src: string): string[] {
+  const clean = src.split("?")[0].replace(/^\/+/, "").toLowerCase();
+  if (!/^https?:\/\//i.test(clean)) {
+    const local = clean.replace(/^images\//, "").replace(/\.[a-z0-9]+$/i, "");
+    return [`path:${local}`, `name:${local.split("/").pop()}`];
   }
-  return src.replace(/^\/+/, "").toLowerCase();
+
+  const cloudinary = clean.match(
+    /^https?:\/\/res\.cloudinary\.com\/[^/]+\/image\/upload\/(.*)$/i
+  );
+  if (!cloudinary) return [`url:${clean}`];
+
+  const publicId = cloudinary[1]
+    .replace(/^(?:[^/]+\/)*(?=v\d+\/)/, "")
+    .replace(/^v\d+\//, "")
+    .replace(/\.[a-z0-9]+$/i, "");
+  const localEquivalent = publicId.replace(/^images\//, "");
+  return [
+    `cloudinary:${publicId}`,
+    `path:${localEquivalent}`,
+    `name:${localEquivalent.split("/").pop()}`
+  ];
 }
 
-function mergeGallery(cloudinaryPhotos: typeof gallery, localPhotos: typeof gallery) {
+function mergeGallery(cloudinaryPhotos: GalleryItem[], localPhotos: GalleryItem[]): GalleryItem[] {
   const seen = new Set<string>();
   return [...cloudinaryPhotos, ...localPhotos].filter((image) => {
-    const key = galleryKey(image.src);
-    if (seen.has(key)) return false;
-    seen.add(key);
+    const keys = assetKeys(image.src);
+    if (keys.some((key) => seen.has(key))) return false;
+    keys.forEach((key) => seen.add(key));
     return true;
   });
 }
