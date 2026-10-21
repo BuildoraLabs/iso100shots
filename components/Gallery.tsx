@@ -73,50 +73,45 @@ export function Gallery({ items = gallery }: GalleryProps) {
       </div>
 
       <div className="mx-auto max-w-7xl px-5 md:px-8">
+        {/* CSS columns provide masonry flow while each photograph keeps its native aspect ratio. */}
         <div className="columns-1 gap-4 sm:columns-2 md:gap-5 xl:columns-3">
           {visibleImages.map((image) => {
             const isCloudinary = image.src.startsWith("https://res.cloudinary.com/");
             return (
-            <button
-              key={image.src}
-              type="button"
-              className="group mb-4 inline-block w-full break-inside-avoid overflow-hidden border border-white/10 bg-white/[0.035] text-left shadow-[0_18px_55px_rgba(0,0,0,0.28)] transition duration-300 hover:-translate-y-1 hover:border-white/24 hover:bg-white/[0.055] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 md:mb-5"
-              onClick={() => setSelectedImage(image)}
-            >
-              <span className="relative block w-full">
-                <Image
-                  src={imageSource(image.src)}
-                  alt={image.alt}
-                  width={image.width}
-                  height={image.height}
-                  loader={isCloudinary ? cloudinaryLoader : undefined}
-                  className="block h-auto w-full brightness-[0.96] contrast-[1.04] saturate-[1.08] transition duration-700 group-hover:scale-[1.02] group-hover:brightness-100 group-hover:saturate-[1.16]"
-                  sizes="(min-width: 1280px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  loading="lazy"
-                />
-
-                <span className="absolute inset-0 bg-black/0 transition duration-500 group-hover:bg-black/24" />
-
-                <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/88 via-black/45 to-transparent p-4 transition duration-500 sm:p-5 lg:translate-y-3 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100">
-                  <span className="line-clamp-2 block text-sm font-medium leading-5 text-white sm:text-base">
-                    {image.title}
-                  </span>
-
-                  <span className="mt-1 block text-[0.68rem] uppercase tracking-[0.16em] text-white/80 sm:text-xs sm:tracking-[0.2em]">
-                    {categoryLabels[image.category]}
+              <button
+                key={image.src}
+                type="button"
+                className="group mb-4 inline-block w-full break-inside-avoid overflow-hidden border border-white/10 bg-white/[0.035] text-left shadow-[0_18px_55px_rgba(0,0,0,0.28)] transition duration-300 hover:-translate-y-1 hover:border-white/24 hover:bg-white/[0.055] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 md:mb-5"
+                onClick={() => setSelectedImage(image)}
+              >
+                <span className="relative block w-full">
+                  <Image
+                    src={imageSource(image.src)}
+                    alt={image.alt}
+                    width={image.width}
+                    height={image.height}
+                    loader={isCloudinary ? cloudinaryLoader : undefined}
+                    className="block h-auto w-full brightness-[0.96] contrast-[1.04] saturate-[1.08] transition duration-700 group-hover:scale-[1.02] group-hover:brightness-100 group-hover:saturate-[1.16]"
+                    sizes="(min-width: 1280px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    loading="lazy"
+                  />
+                  <span className="pointer-events-none absolute inset-0 bg-black/0 transition duration-500 group-hover:bg-black/24" />
+                  <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/88 via-black/45 to-transparent p-4 transition duration-500 sm:p-5 lg:translate-y-3 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100">
+                    <span className="line-clamp-2 block text-sm font-medium leading-5 text-white sm:text-base">
+                      {image.title}
+                    </span>
+                    <span className="mt-1 block text-[0.68rem] uppercase tracking-[0.16em] text-white/80 sm:text-xs sm:tracking-[0.2em]">
+                      {categoryLabels[image.category]}
+                    </span>
                   </span>
                 </span>
-              </span>
-            </button>
+              </button>
             );
           })}
         </div>
       </div>
 
-      <Lightbox
-        image={selectedImage}
-        onClose={() => setSelectedImage(null)}
-      />
+      <Lightbox image={selectedImage} onClose={() => setSelectedImage(null)} />
     </section>
   );
 }
