@@ -65,14 +65,14 @@ export function Gallery({ items = gallery }: GalleryProps) {
 
       <div className="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8">
         {/* CSS columns keep a natural masonry flow; no fixed-height rows or image cropping. */}
-        <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 2xl:columns-4">
+        <div className="columns-1 gap-5 sm:columns-2 lg:columns-3 2xl:columns-3">
           {visibleImages.map((image) => {
             const isCloudinary = /^(https?:)?\/\/res\.cloudinary\.com\//i.test(image.src);
             return (
               <button
                 key={image.src}
                 type="button"
-                className="group relative mb-4 inline-block w-full break-inside-avoid overflow-hidden border border-white/10 bg-white/[0.035] text-left shadow-[0_18px_55px_rgba(0,0,0,0.28)] transition duration-300 hover:-translate-y-1 hover:border-white/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                className="group relative mb-5 inline-block w-full break-inside-avoid overflow-hidden border border-white/10 bg-white/[0.035] text-left shadow-[0_18px_55px_rgba(0,0,0,0.28)] transition duration-300 hover:-translate-y-1 hover:border-white/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
                 onClick={() => setSelectedImage(image)}
               >
                 <img
