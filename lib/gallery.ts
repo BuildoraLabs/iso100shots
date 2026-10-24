@@ -79,15 +79,7 @@ export const gallery: GalleryItem[] = [
     alt: "Bara Gumbad monument at Lodhi Garden photographed as Indian heritage architecture.",
     isHero: false
   },
-  {
-    src: "images/architecture-heritage/city-palace-udaipur-corridor-leading-lines.jpg",
-    width: 2048,
-    height: 1365,
-    category: "architecture-heritage",
-    title: "City Palace Udaipur Corridor",
-    alt: "City Palace Udaipur corridor with repeating arches and strong leading lines.",
-    isHero: false
-  },
+
   {
     src: "images/architecture-heritage/kumbhalgarh-fort-heritage-view.jpg",
     width: 2048,
@@ -224,15 +216,7 @@ export const gallery: GalleryItem[] = [
     alt: "White-throated kingfisher perched on a branch against a natural background.",
     isHero: false
   },
-  {
-    src: "https://res.cloudinary.com/ptgwbnv7/image/upload/v1792506421/NIK_1481.jpg",
-    width: 2048,
-    height: 1365,
-    category: "landscapes-light",
-    title: "Sunrise — NIK_1481",
-    alt: "Sunrise over a dark mountain landscape, with vivid orange and red clouds in the sky. Photograph NIK_1481.",
-    isHero: false
-  }
+
 ];
 
 export const galleryCategories: Array<"all" | GalleryCategory> = [
@@ -242,6 +226,15 @@ export const galleryCategories: Array<"all" | GalleryCategory> = [
   "architecture-heritage",
   "landscapes-light",
   "nature-details"
+  {
+    src: "images/architecture-heritage/city-palace-udaipur-corridor-leading-lines.jpg",
+    width: 2048,
+    height: 1365,
+    category: "architecture-heritage",
+    title: "City Palace Udaipur Corridor",
+    alt: "City Palace Udaipur corridor with repeating arches and strong leading lines.",
+    isHero: false
+  }
 ];
 
 export const categoryLabels: Record<"all" | GalleryCategory, string> = {
