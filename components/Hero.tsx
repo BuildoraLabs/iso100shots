@@ -7,7 +7,7 @@ export function Hero() {
         alt="Close-up of a purple lotus flower, showing rich violet petals and fine natural detail."
         fill
         priority
-        className="object-cover object-center"
+        className="object-cover object-[35%_center] md:object-center"
         sizes="100vw"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/5 to-black/62" />
