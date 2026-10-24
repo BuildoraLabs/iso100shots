@@ -3,10 +3,11 @@
 import { useEffect, useState } from "react";
 
 const links = [
-  { label: "Home", href: "#home" },
-  { label: "Gallery", href: "#gallery" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" }
+  { label: "Home", href: "/" },
+  { label: "Gallery", href: "/#gallery" },
+  { label: "Shop", href: "/shop" },
+  { label: "About", href: "/#about" },
+  { label: "Contact", href: "/#contact" }
 ];
 
 export function Navbar() {
