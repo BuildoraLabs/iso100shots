@@ -17,15 +17,6 @@ export type GalleryItem = {
 
 export const gallery: GalleryItem[] = [
   {
-    src: "https://res.cloudinary.com/ptgwbnv7/image/upload/v1792506421/NIK_1481.jpg",
-    width: 2048,
-    height: 1365,
-    category: "landscapes-light",
-    title: "Sunrise",
-    alt: "Sunrise over a dark mountain landscape, with vivid orange and red clouds in the sky.",
-    isHero: false
-  },
-  {
     src: "images/people-stories/a-moment-of-freedom.jpg",
     width: 1365,
     height: 2048,
@@ -88,15 +79,7 @@ export const gallery: GalleryItem[] = [
     alt: "Bara Gumbad monument at Lodhi Garden photographed as Indian heritage architecture.",
     isHero: false
   },
-  {
-    src: "images/architecture-heritage/city-palace-udaipur-corridor-leading-lines.jpg",
-    width: 2048,
-    height: 1365,
-    category: "architecture-heritage",
-    title: "City Palace Udaipur Corridor",
-    alt: "City Palace Udaipur corridor with repeating arches and strong leading lines.",
-    isHero: false
-  },
+
   {
     src: "images/architecture-heritage/kumbhalgarh-fort-heritage-view.jpg",
     width: 2048,
@@ -185,7 +168,7 @@ export const gallery: GalleryItem[] = [
     category: "landscapes-light",
     title: "Udaipur Sunset Orange Gradient",
     alt: "Orange sunset gradient over Udaipur with warm evening light across the lake.",
-    isHero: true
+    isHero: false
   },
 
   {
@@ -222,7 +205,7 @@ export const gallery: GalleryItem[] = [
     category: "nature-details",
     title: "Purple Lotus Closeup",
     alt: "Macro-style close-up of a purple lotus flower showing petals and texture.",
-    isHero: false
+    isHero: true
   },
   {
     src: "images/nature-details/white-throated-kingfisher-perch.jpg",
@@ -231,6 +214,15 @@ export const gallery: GalleryItem[] = [
     category: "nature-details",
     title: "White Throated Kingfisher",
     alt: "White-throated kingfisher perched on a branch against a natural background.",
+    isHero: false
+  },
+  {
+    src: "images/architecture-heritage/city-palace-udaipur-corridor-leading-lines.jpg",
+    width: 2048,
+    height: 1365,
+    category: "architecture-heritage",
+    title: "City Palace Udaipur Corridor",
+    alt: "City Palace Udaipur corridor with repeating arches and strong leading lines.",
     isHero: false
   }
 ];
