@@ -10,7 +10,11 @@ type ShopPreviewImageProps = {
 
 export function ShopPreviewImage({ src, alt, categoryLabel }: ShopPreviewImageProps) {
   return (
-    <div className="relative aspect-[4/3] select-none bg-[#111]">
+    <div
+      className="relative aspect-[4/3] select-none bg-[#111]"
+      onContextMenu={(event) => event.preventDefault()}
+      aria-label="Watermarked photo preview; right-click and long-press menus are disabled on this image"
+    >
       <Image
         src={src}
         alt={alt}
