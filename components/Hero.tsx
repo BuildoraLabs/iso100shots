@@ -3,11 +3,11 @@ export function Hero() {
   return (
     <section id="home" className="relative min-h-[100svh] overflow-hidden md:min-h-screen">
       <Image
-        src="/images/nature-details/lotus-closeup-purple-bloom.jpg"
-        alt="Close-up of a purple lotus bloom with violet petals and a bright golden centre."
+        src="/images/nature-details/purple-lotus-closeup.jpg"
+        alt="Macro-style close-up of a purple lotus flower showing petals and texture."
         fill
         priority
-        className="object-cover object-center"
+        className="object-cover object-[35%_center] md:object-[15%_center]"
         sizes="100vw"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/5 to-black/62" />
