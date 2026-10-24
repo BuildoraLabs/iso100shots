@@ -10,10 +10,7 @@ type ShopPreviewImageProps = {
 
 export function ShopPreviewImage({ src, alt, categoryLabel }: ShopPreviewImageProps) {
   return (
-    <div
-      className="relative aspect-[4/3] select-none bg-[#111]"
-      onContextMenu={(event) => event.preventDefault()}
-    >
+    <div className="relative aspect-[4/3] select-none bg-[#111]">
       <Image
         src={src}
         alt={alt}
