@@ -35,11 +35,13 @@ export function Lightbox({ image, onClose }: LightboxProps) {
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-center justify-center bg-black/92 px-3 py-6 backdrop-blur-md sm:px-4 sm:py-10"
+      className="fixed inset-0 z-[60] flex items-center justify-center bg-black/92 px-3 py-6 backdrop-blur-md sm:px-4 sm:py-10 select-none"
       role="dialog"
       aria-modal="true"
       aria-label={image.title}
       onClick={onClose}
+      onContextMenu={(event) => event.preventDefault()}
+      onDragStart={(event) => event.preventDefault()}
     >
       <button
         className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center border border-white/15 bg-white/5 text-2xl leading-none text-white/70 transition hover:bg-white/10 hover:text-white sm:right-5 sm:top-5"
@@ -59,9 +61,10 @@ export function Lightbox({ image, onClose }: LightboxProps) {
             alt={image.alt}
             loader={image.src.startsWith("https://res.cloudinary.com/") ? cloudinaryLoader : undefined}
             fill
-            className="object-contain"
+            className="pointer-events-none select-none object-contain"
             sizes="100vw"
             priority
+            draggable={false}
           />
         </div>
         <figcaption className="mx-auto mt-5 max-w-3xl text-center">
