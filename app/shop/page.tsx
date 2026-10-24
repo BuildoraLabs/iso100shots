@@ -8,12 +8,12 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Photo Shop | Fine-Art Prints & Hospitality Photography",
   description:
-    "Explore selected photographs by Kunal Kapoor for considered interiors, homes, hotels and hospitality spaces. Enquire about prints and commercial licensing.",
+    "Explore a curated selection of photographs by Kunal Kapoor for homes, hotels and hospitality spaces. Enquire about prints and commercial licensing.",
   alternates: { canonical: "/shop" },
   openGraph: {
     title: "Photo Shop | iso.100.shots",
     description:
-      "Photography for your walls and spaces. Explore the catalogue and enquire about prints or commercial image licensing.",
+      "A curated selection of photography for considered interiors and hospitality spaces.",
     url: "https://iso100shots.com/shop",
     type: "website"
   }
@@ -24,13 +24,13 @@ function useCase(category: GalleryCategory) {
     "people-stories":
       "A human moment can bring warmth and a sense of place to a reading corner, café, or relaxed hospitality space.",
     "framed-perspectives":
-      "Strong framing and leading lines make this a considered accent for a hallway, reception, or contemporary living space.",
+      "Layered views and strong composition create a thoughtful focal point for a lounge, reception, or guest room.",
     "architecture-heritage":
-      "Architectural detail can add a sense of history and local character to a hotel lobby, corridor, study, or heritage-inspired interior.",
+      "Architectural detail can add a sense of history and local character to a hotel lobby, corridor, or heritage-inspired interior.",
     "landscapes-light":
-      "Open horizons and natural light can create a calm focal point for a bedroom, lounge, spa, or guest-room interior.",
+      "Open horizons, reflective water and warm natural light create a calm focal point for a bedroom, lounge, spa, or guest room.",
     "nature-details":
-      "Botanical forms and small details work well as a quiet accent in a bedroom, wellness area, or nature-led space."
+      "Botanical forms and natural textures bring a quiet accent to bedrooms, wellness areas, and nature-led interiors."
   };
   return copy[category];
 }
@@ -40,6 +40,21 @@ function imageSource(src: string) {
     ? src
     : `/${src.replace(/^\//, "")}`;
 }
+
+// Curated manually from the existing static gallery. Keep the full portfolio untouched.
+const shopPhotoTitles = [
+  "Purple Lotus Closeup",
+  "Udaipur Sunset Orange Gradient",
+  "Sunset With Light Breaking Through",
+  "Where The Water Rests",
+  "Framed Lake View Through Leaves",
+  "Green Canopy Walkway",
+  "Udaipur Lake Sunset Lights"
+];
+
+const shopPhotos = shopPhotoTitles
+  .map((title) => gallery.find((photo) => photo.title === title))
+  .filter((photo): photo is (typeof gallery)[number] => Boolean(photo));
 
 export default function ShopPage() {
   return (
@@ -56,8 +71,8 @@ export default function ShopPage() {
                 Photographs that make a space feel like somewhere.
               </h1>
               <p className="mt-6 max-w-2xl text-base leading-7 text-white/62 md:text-lg">
-                A growing selection of places, light, architecture and everyday moments by Kunal Kapoor.
-                Explore how a photograph could live in your home or hospitality space, then enquire about a print or commercial use.
+                A considered selection of flowers, landscapes and quiet natural scenes by Kunal Kapoor.
+                Explore photographs that could complement a home, hotel, resort or wellness space.
               </p>
             </div>
             <div className="border border-white/12 bg-white/[0.035] p-5 sm:p-6">
@@ -78,16 +93,24 @@ export default function ShopPage() {
         <section className="mx-auto max-w-7xl px-5 pt-10 md:px-8 md:pt-14">
           <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-xs uppercase tracking-[0.25em] text-white/42">Selected work</p>
-              <h2 className="mt-2 text-2xl font-medium sm:text-3xl">Find a frame for your space</h2>
+              <p className="text-xs uppercase tracking-[0.25em] text-white/42">Curated selection</p>
+              <h2 className="mt-2 text-2xl font-medium sm:text-3xl">Artwork for considered spaces</h2>
             </div>
             <p className="max-w-lg text-sm leading-6 text-white/45">
-              These are catalogue previews. Pricing below is indicative for testing the concept; no payment is taken on this page.
+              A small selection chosen for interiors, guest rooms and hospitality spaces.
+            </p>
+          </div>
+
+          <div className="mb-8 border-y border-white/10 py-5 sm:py-6">
+            <p className="text-xs uppercase tracking-[0.18em] text-white/45">Prints & licensing</p>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-white/65">
+              Pricing is discussed individually based on print size, quantity, intended display and licensing rights.
+              These are watermarked previews for enquiry only; no payment or direct download is available yet.
             </p>
           </div>
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
-            {gallery.map((photo) => (
+            {shopPhotos.map((photo) => (
               <article key={photo.src} className="overflow-hidden border border-white/10 bg-white/[0.025]">
                 <ShopPreviewImage
                   src={imageSource(photo.src)}
@@ -97,16 +120,9 @@ export default function ShopPage() {
                 <div className="p-5 sm:p-6">
                   <h3 className="text-lg font-medium text-white sm:text-xl">{photo.title}</h3>
                   <p className="mt-3 text-sm leading-6 text-white/58">{useCase(photo.category)}</p>
-                  <div className="mt-5 border-t border-white/10 pt-4">
-                    <p className="text-xs uppercase tracking-[0.16em] text-white/40">Indicative concept price</p>
-                    <p className="mt-1 text-xl font-medium">₹1,499 <span className="text-sm font-normal text-white/45">/ watermarked digital file</span></p>
-                    <p className="mt-2 text-xs leading-5 text-white/42">
-                      Illustrative only, not currently for sale. Watermark remains visible; no print-ready or commercial reproduction rights are included.
-                    </p>
-                  </div>
                   <a
                     className="mt-5 flex w-full items-center justify-between border border-white/25 px-4 py-3 text-xs uppercase tracking-[0.15em] text-white/85 transition hover:border-white hover:bg-white hover:text-black"
-                    href={`mailto:iso100shots.shop@gmail.com?subject=${encodeURIComponent(`Enquiry about ${photo.title}`)}&body=${encodeURIComponent(`Hi Kunal,\\n\\nI am interested in "${photo.title}". Please share print options and/or commercial licensing details for my intended use.\\n\\nIntended use: `) }`}
+                    href={`mailto:iso100shots.shop@gmail.com?subject=${encodeURIComponent(`Enquiry about ${photo.title}`)}&body=${encodeURIComponent(`Hi Kunal,\n\nI am interested in "${photo.title}". Please share print options and/or commercial licensing details for my intended use.\n\nIntended use: `)}`}
                   >
                     Enquire about this photo <span aria-hidden="true">↗</span>
                   </a>
