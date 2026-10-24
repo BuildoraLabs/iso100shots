@@ -1,12 +1,10 @@
 import Image from "next/image";
-import { heroImage } from "@/lib/gallery";
-
 export function Hero() {
   return (
     <section id="home" className="relative min-h-[100svh] overflow-hidden md:min-h-screen">
       <Image
-        src="/images/landscapes-light/udaipur-sunset-orange-gradient.jpg"
-        alt={heroImage.alt}
+        src="/images/nature-details/purple-lotus-closeup.jpg"
+        alt="Close-up of a purple lotus flower, showing rich violet petals and fine natural detail."
         fill
         priority
         className="object-cover object-center"
