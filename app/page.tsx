@@ -2,8 +2,8 @@ import { Footer } from "@/components/Footer";
 import { Gallery } from "@/components/Gallery";
 import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
-import { gallery, heroImage } from "@/lib/gallery";
-import { getPublishedSupabasePhotos } from "@/lib/supabase-photos";
+import { gallery, heroImage, type GalleryItem } from "@/lib/gallery";
+import { getPublishedCloudinaryPhotos } from "@/lib/cloudinary-photos";
 import {
   absoluteUrl,
   photographerName,
@@ -12,9 +12,44 @@ import {
   socialLinks
 } from "@/lib/seo";
 
+function assetKeys(src: string): string[] {
+  const clean = src.split("?")[0].replace(/^\/+/, "").toLowerCase();
+  if (!/^https?:\/\//i.test(clean)) {
+    const local = clean.replace(/^images\//, "").replace(/\.[a-z0-9]+$/i, "");
+    return [`path:${local}`, `name:${local.split("/").pop()}`];
+  }
+
+  const cloudinary = clean.match(
+    /^https?:\/\/res\.cloudinary\.com\/[^/]+\/image\/upload\/(.*)$/i
+  );
+  if (!cloudinary) return [`url:${clean}`];
+
+  const publicId = cloudinary[1]
+    .replace(/^(?:[^/]+\/)*(?=v\d+\/)/, "")
+    .replace(/^v\d+\//, "")
+    .replace(/\.[a-z0-9]+$/i, "");
+  const localEquivalent = publicId.replace(/^images\//, "");
+  return [
+    `cloudinary:${publicId}`,
+    `path:${localEquivalent}`,
+    `name:${localEquivalent.split("/").pop()}`
+  ];
+}
+
+function mergeGallery(cloudinaryPhotos: GalleryItem[], localPhotos: GalleryItem[]): GalleryItem[] {
+  const seen = new Set<string>();
+  return [...cloudinaryPhotos, ...localPhotos].filter((image) => {
+    const keys = assetKeys(image.src);
+    if (keys.some((key) => seen.has(key))) return false;
+    keys.forEach((key) => seen.add(key));
+    return true;
+  });
+}
+
 export default async function Home() {
-  const supabasePhotos = await getPublishedSupabasePhotos();
-  const allGallery = [...supabasePhotos, ...gallery];
+  const cloudinaryPhotos = await getPublishedCloudinaryPhotos();
+  // Cloudinary items take priority; local assets fill gaps without duplicating the same image.
+  const allGallery = mergeGallery(cloudinaryPhotos, gallery);
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -112,34 +147,14 @@ export default async function Home() {
             light and real expressions. My work focuses on authenticity,
             simplicity, and unnoticed details from daily life.
           </p>
-          <div className="mt-8 space-y-3 text-base leading-7 text-white/58">
-            <p>Recognized as a Guru (Level 9) on GuruShots</p>
-            <p>
-              View my work:{" "}
-              <a
-                className="text-white/78 underline decoration-white/25 underline-offset-4 transition hover:text-white hover:decoration-white/60"
-                href="https://gurushots.com/Kunal.K7/photos"
-                target="_blank"
-                rel="noreferrer"
-              >
-                gurushots.com/Kunal.K7/photos
-              </a>
-            </p>
-            <p>Available for collaborations & projects</p>
-            <p>
-              Email:{" "}
-              <a
-                className="text-white/78 transition hover:text-white"
-                href="mailto:iso100shots.shop@gmail.com"
-              >
-                iso100shots.shop@gmail.com
-              </a>
-            </p>
-          </div>
         </section>
         <section
           id="contact"
-          className="fade-in scroll-mt-20 border-y border-white/10 px-5 py-20 text-center sm:px-6 md:py-24"
+          className="fade-in scroll-mt-20 border-y border-white/10 bg-cover bg-center px-5 py-20 text-center sm:px-6 md:py-24"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.72)), url('/images/nature-details/purple-lotus-closeup.jpg')"
+          }}
         >
           <p className="mb-4 text-sm uppercase tracking-[0.32em] text-white/45">Contact</p>
           <h2 className="text-3xl font-medium text-fog md:text-5xl">Let&apos;s work together</h2>
@@ -162,17 +177,6 @@ export default async function Home() {
                 rel="noreferrer"
               >
                 instagram.com/iso.100.shots
-              </a>
-            </p>
-            <p>
-              500px:{" "}
-              <a
-                className="transition hover:text-white"
-                href="https://500px.com/p/KunalKapoor"
-                target="_blank"
-                rel="noreferrer"
-              >
-                500px.com/p/KunalKapoor
               </a>
             </p>
           </div>

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect } from "react";
 import type { GalleryItem } from "@/lib/gallery";
+import { cloudinaryLoader } from "@/lib/cloudinary-loader";
 
 function imageSource(src: string) {
   return src.startsWith("http://") || src.startsWith("https://") ? src : `/${src.replace(/^\//, "")}`;
@@ -56,6 +57,7 @@ export function Lightbox({ image, onClose }: LightboxProps) {
           <Image
             src={imageSource(image.src)}
             alt={image.alt}
+            loader={image.src.startsWith("https://res.cloudinary.com/") ? cloudinaryLoader : undefined}
             fill
             className="object-contain"
             sizes="100vw"
