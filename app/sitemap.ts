@@ -10,6 +10,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: "monthly",
       priority: 1
+    },
+    {
+      url: absoluteUrl("/shop"),
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8
     }
   ];
 }
