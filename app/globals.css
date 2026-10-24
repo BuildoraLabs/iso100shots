@@ -25,7 +25,13 @@ body {
   overflow-x: hidden;
 }
 
-img,
+img {
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
 svg {
   max-width: 100%;
 }
