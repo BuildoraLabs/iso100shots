@@ -78,6 +78,7 @@ export function Gallery({ items = gallery }: GalleryProps) {
                 key={image.src}
                 type="button"
                 aria-label={`View ${image.title}`}
+                data-image-protected="true"
                 className="group relative mb-5 inline-block w-full break-inside-avoid overflow-hidden border border-white/10 bg-white/[0.035] text-left shadow-[0_18px_55px_rgba(0,0,0,0.28)] transition duration-300 hover:-translate-y-1 hover:border-white/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 select-none"
                 onClick={() => setSelectedImage(image)}
                 onContextMenu={(event) => event.preventDefault()}
