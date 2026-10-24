@@ -153,7 +153,7 @@ export default async function Home() {
           className="fade-in scroll-mt-20 border-y border-white/10 bg-cover bg-center px-5 py-20 text-center sm:px-6 md:py-24"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.72)), url('/images/nature-details/purple-lotus-closeup.jpg')"
+              "linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.72)), url('https://res.cloudinary.com/ptgwbnv7/image/upload/v1792506421/NIK_1481.jpg')"
           }}
         >
           <p className="mb-4 text-sm uppercase tracking-[0.32em] text-white/45">Contact</p>
