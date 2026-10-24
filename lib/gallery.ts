@@ -216,16 +216,6 @@ export const gallery: GalleryItem[] = [
     alt: "White-throated kingfisher perched on a branch against a natural background.",
     isHero: false
   },
-
-];
-
-export const galleryCategories: Array<"all" | GalleryCategory> = [
-  "all",
-  "people-stories",
-  "framed-perspectives",
-  "architecture-heritage",
-  "landscapes-light",
-  "nature-details"
   {
     src: "images/architecture-heritage/city-palace-udaipur-corridor-leading-lines.jpg",
     width: 2048,
@@ -235,6 +225,15 @@ export const galleryCategories: Array<"all" | GalleryCategory> = [
     alt: "City Palace Udaipur corridor with repeating arches and strong leading lines.",
     isHero: false
   }
+];
+
+export const galleryCategories: Array<"all" | GalleryCategory> = [
+  "all",
+  "people-stories",
+  "framed-perspectives",
+  "architecture-heritage",
+  "landscapes-light",
+  "nature-details"
 ];
 
 export const categoryLabels: Record<"all" | GalleryCategory, string> = {
