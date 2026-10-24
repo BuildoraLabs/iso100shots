@@ -64,7 +64,6 @@ export function Gallery({ items = gallery }: GalleryProps) {
       </div>
 
       <div className="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8">
-        {/* CSS columns keep a natural masonry flow; no fixed-height rows or image cropping. */}
         <div
           className={
             activeFilter === "all"
@@ -78,8 +77,11 @@ export function Gallery({ items = gallery }: GalleryProps) {
               <button
                 key={image.src}
                 type="button"
-                className="group relative mb-5 inline-block w-full break-inside-avoid overflow-hidden border border-white/10 bg-white/[0.035] text-left shadow-[0_18px_55px_rgba(0,0,0,0.28)] transition duration-300 hover:-translate-y-1 hover:border-white/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                aria-label={`View ${image.title}`}
+                className="group relative mb-5 inline-block w-full break-inside-avoid overflow-hidden border border-white/10 bg-white/[0.035] text-left shadow-[0_18px_55px_rgba(0,0,0,0.28)] transition duration-300 hover:-translate-y-1 hover:border-white/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 select-none"
                 onClick={() => setSelectedImage(image)}
+                onContextMenu={(event) => event.preventDefault()}
+                onDragStart={(event) => event.preventDefault()}
               >
                 <img
                   src={isCloudinary ? image.src : imageSource(image.src)}
@@ -88,12 +90,13 @@ export function Gallery({ items = gallery }: GalleryProps) {
                   height={image.height}
                   loading="lazy"
                   decoding="async"
+                  draggable={false}
+                  onContextMenu={(event) => event.preventDefault()}
                   onError={(event) => {
-                    // Don't leave an empty black card when an image URL is invalid or unavailable.
                     const card = event.currentTarget.closest("button");
                     if (card) card.remove();
                   }}
-                  className="block h-auto w-full brightness-[0.96] contrast-[1.04] saturate-[1.08] transition duration-500 group-hover:brightness-100 group-hover:saturate-[1.12]"
+                  className="pointer-events-none block h-auto w-full select-none brightness-[0.96] contrast-[1.04] saturate-[1.08] transition duration-500 group-hover:brightness-100 group-hover:saturate-[1.12]"
                 />
                 <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/45 to-transparent p-4 opacity-100 transition duration-300 sm:p-5 lg:opacity-0 lg:group-hover:opacity-100">
                   <span className="line-clamp-2 block text-sm font-medium leading-5 text-white sm:text-base">
