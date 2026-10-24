@@ -34,7 +34,7 @@ export function Navbar() {
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:px-8">
         {/* Logo */}
         <a
-          href="#home"
+          href="/"
           className="text-sm font-medium tracking-[0.16em] text-white sm:tracking-[0.24em]"
         >
           iso.100.shots
