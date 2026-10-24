@@ -89,13 +89,17 @@ export default function ShopPage() {
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
             {gallery.map((photo) => (
               <article key={photo.src} className="overflow-hidden border border-white/10 bg-white/[0.025]">
-                <div className="relative aspect-[4/3] bg-[#111]">
+                <div
+                  className="relative aspect-[4/3] select-none bg-[#111]"
+                  onContextMenu={(event) => event.preventDefault()}
+                >
                   <Image
                     src={imageSource(photo.src)}
                     alt={photo.alt}
                     fill
                     sizes="(min-width: 1280px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover"
+                    className="pointer-events-none object-cover"
+                    draggable={false}
                     loading="lazy"
                   />
                   <span className="absolute bottom-3 left-3 border border-white/20 bg-black/65 px-2 py-1 text-[0.62rem] uppercase tracking-[0.14em] text-white/75 backdrop-blur">
