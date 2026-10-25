@@ -68,7 +68,7 @@ export function Gallery({ items = gallery }: GalleryProps) {
           className={
             activeFilter === "all"
               ? "columns-1 gap-5 sm:columns-2 lg:columns-3 2xl:columns-3"
-              : "flex flex-wrap items-start justify-center gap-5"
+              : "flex flex-wrap items-start justify-start gap-5"
           }
         >
           {visibleImages.map((image, index) => {
