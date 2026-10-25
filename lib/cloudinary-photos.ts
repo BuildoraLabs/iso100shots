@@ -106,7 +106,7 @@ export async function getPublishedCloudinaryPhotos(): Promise<GalleryItem[]> {
           metadataTitle ||
           (looksLikeCameraFilename(filenameTitle)
             ? filenameTitle.toLowerCase() === "nik 1481"
-              ? "Sunrise"
+              ? "Early Morning Sunrise in Thekkady"
               : "Untitled photograph"
             : filenameTitle);
 
