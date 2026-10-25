@@ -3,19 +3,40 @@ import { Navbar } from "@/components/Navbar";
 import { ShopPreviewImage } from "@/components/ShopPreviewImage";
 import { gallery, categoryLabels } from "@/lib/gallery";
 import type { GalleryCategory } from "@/lib/gallery";
+import { absoluteUrl, siteName } from "@/lib/seo";
 import type { Metadata } from "next";
 
+const shopTitle = "Photo Shop | Fine-Art Prints & Hospitality Photography";
+const shopDescription =
+  "Explore a curated selection of photographs by Kunal Kapoor for homes, hotels and hospitality spaces. Enquire about prints and commercial licensing.";
+const shopSocialDescription =
+  "A curated selection of photography for considered interiors and hospitality spaces.";
+const shopSocialImage = {
+  url: "/images/nature-details/purple-lotus-closeup.jpg",
+  width: 2048,
+  height: 1638,
+  alt: "Macro-style close-up of a purple lotus flower showing petals and texture."
+};
+
 export const metadata: Metadata = {
-  title: "Photo Shop | Fine-Art Prints & Hospitality Photography",
-  description:
-    "Explore a curated selection of photographs by Kunal Kapoor for homes, hotels and hospitality spaces. Enquire about prints and commercial licensing.",
+  title: shopTitle,
+  description: shopDescription,
   alternates: { canonical: "/shop" },
+  // A page-level openGraph/twitter object replaces the layout's, so images must be set here too.
   openGraph: {
-    title: "Photo Shop | iso.100.shots",
-    description:
-      "A curated selection of photography for considered interiors and hospitality spaces.",
-    url: "https://iso100shots.com/shop",
-    type: "website"
+    type: "website",
+    locale: "en_IN",
+    siteName,
+    title: `Photo Shop | ${siteName}`,
+    description: shopSocialDescription,
+    url: absoluteUrl("/shop"),
+    images: [shopSocialImage]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Photo Shop | ${siteName}`,
+    description: shopSocialDescription,
+    images: [shopSocialImage.url]
   }
 };
 
