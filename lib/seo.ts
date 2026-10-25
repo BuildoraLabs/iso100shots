@@ -1,4 +1,5 @@
-export const siteUrl = "https://iso100shots.com";
+// The apex domain redirects to www, so www is the canonical host.
+export const siteUrl = "https://www.iso100shots.com";
 
 export const siteName = "iso.100.shots";
 
