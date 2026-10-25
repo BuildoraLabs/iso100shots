@@ -61,6 +61,9 @@ export const metadata: Metadata = {
       "max-video-preview": -1
     }
   },
+  icons: {
+    icon: "/favicon.ico"
+  },
   other: {
     "profile:first_name": "Kunal",
     "profile:last_name": "Kapoor",
