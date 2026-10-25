@@ -104,7 +104,11 @@ export async function getPublishedCloudinaryPhotos(): Promise<GalleryItem[]> {
 
         const title =
           metadataTitle ||
-          (looksLikeCameraFilename(filenameTitle) ? "Untitled photograph" : filenameTitle);
+          (looksLikeCameraFilename(filenameTitle)
+            ? filenameTitle.toLowerCase() === "nik 1481"
+              ? "Sunrise"
+              : "Untitled photograph"
+            : filenameTitle);
 
         return {
           src: asset.secure_url,

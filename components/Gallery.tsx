@@ -68,10 +68,10 @@ export function Gallery({ items = gallery }: GalleryProps) {
           className={
             activeFilter === "all"
               ? "columns-1 gap-5 sm:columns-2 lg:columns-3 2xl:columns-3"
-              : "columns-1 gap-5 sm:columns-2 lg:columns-2 2xl:columns-2"
+              : "flex flex-wrap items-start justify-center gap-5"
           }
         >
-          {visibleImages.map((image) => {
+          {visibleImages.map((image, index) => {
             const isCloudinary = /^(https?:)?\/\/res\.cloudinary\.com\//i.test(image.src);
             return (
               <button
@@ -79,7 +79,7 @@ export function Gallery({ items = gallery }: GalleryProps) {
                 type="button"
                 aria-label={`View ${image.title}`}
                 data-image-protected="true"
-                className="group relative mb-5 inline-block w-full break-inside-avoid overflow-hidden border border-white/10 bg-white/[0.035] text-left shadow-[0_18px_55px_rgba(0,0,0,0.28)] transition duration-300 hover:-translate-y-1 hover:border-white/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 select-none"
+                className={`group relative mb-5 inline-block w-full overflow-hidden border border-white/10 bg-white/[0.035] text-left shadow-[0_18px_55px_rgba(0,0,0,0.28)] transition duration-300 hover:-translate-y-1 hover:border-white/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 select-none ${activeFilter === "all" ? "break-inside-avoid" : `sm:w-[calc(50%-0.625rem)] ${visibleImages.length % 2 === 1 && index === visibleImages.length - 1 ? "sm:ml-[25%]" : ""}`}`}
                 onClick={() => setSelectedImage(image)}
                 onContextMenu={(event) => event.preventDefault()}
                 onDragStart={(event) => event.preventDefault()}
