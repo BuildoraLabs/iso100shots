@@ -36,6 +36,11 @@ function titleFromPublicId(publicId: string): string {
     .replace(/\b\w/g, (character) => character.toUpperCase());
 }
 
+// Camera filenames such as "NIK_1481" or "IMG 0042" make poor titles and useless alt text.
+function looksLikeCameraFilename(value: string): boolean {
+  return /^(?:[a-z]{1,5}[\s_-]?)?\d{3,}$/i.test(value.trim());
+}
+
 function canonicalCloudinaryUrl(url: string): string {
   // Different delivery transformations can point to the same underlying asset.
   return url
@@ -87,14 +92,27 @@ export async function getPublishedCloudinaryPhotos(): Promise<GalleryItem[]> {
       })
       .map((asset) => {
         const custom = asset.context?.custom ?? {};
-        const title = custom.title?.trim() || titleFromPublicId(asset.public_id);
+        const metadataTitle = custom.title?.trim() || custom.caption?.trim();
+        const metadataAlt = custom.alt?.trim() || custom.description?.trim();
+        const filenameTitle = titleFromPublicId(asset.public_id);
+
+        if (!metadataTitle) {
+          console.warn(
+            `Cloudinary asset "${asset.public_id}" has no title/caption in its contextual metadata.`
+          );
+        }
+
+        const title =
+          metadataTitle ||
+          (looksLikeCameraFilename(filenameTitle) ? "Untitled photograph" : filenameTitle);
+
         return {
           src: asset.secure_url,
           width: asset.width,
           height: asset.height,
           category: categoryForAsset(asset),
           title,
-          alt: custom.alt?.trim() || title,
+          alt: metadataAlt || metadataTitle || `${title} by Kunal Kapoor`,
           isHero: false
         };
       });

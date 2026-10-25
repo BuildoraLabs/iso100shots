@@ -120,9 +120,9 @@ export default async function Home() {
       <main>
         <Hero />
         <section className="fade-in mx-auto max-w-5xl px-5 py-16 text-center sm:py-20 md:px-6 md:py-32">
-          <p className="text-4xl font-semibold leading-tight tracking-normal text-white sm:text-5xl md:text-7xl">
+          <h1 className="text-4xl font-semibold leading-tight tracking-normal text-white sm:text-5xl md:text-7xl">
             iso.100.shots
-          </p>
+          </h1>
           <p className="mt-4 text-lg font-medium text-white/72 sm:text-xl md:mt-5 md:text-3xl">
             by Kunal Kapoor
           </p>
