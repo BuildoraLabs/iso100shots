@@ -26,9 +26,9 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition duration-500 ${
+      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter] duration-300 ease-out ${
         scrolled || menuOpen
-          ? "border-b border-white/10 bg-black/80 backdrop-blur-xl"
+          ? "bg-black/80 backdrop-blur-xl"
           : "bg-transparent"
       }`}
     >
