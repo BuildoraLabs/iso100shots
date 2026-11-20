@@ -74,9 +74,20 @@ const shopPhotoTitles = [
   "Udaipur Lake Sunset Lights"
 ];
 
-const shopPhotos = shopPhotoTitles
-  .map((title) => gallery.find((photo) => photo.title === title))
-  .filter((photo): photo is (typeof gallery)[number] => Boolean(photo));
+const shopPhotos = [
+  {
+    src: "https://res.cloudinary.com/ptgwbnv7/image/upload/v1795185054/NIK_0717_edited_edited.jpg",
+    width: 5333,
+    height: 4000,
+    category: "architecture-heritage" as const,
+    title: "Sajjangarh Monsoon Palace, Udaipur",
+    alt: "Sajjangarh Monsoon Palace perched on the green Aravalli hills above Udaipur, Rajasthan, beneath a dramatic blue sky.",
+    isHero: false
+  },
+  ...shopPhotoTitles
+    .map((title) => gallery.find((photo) => photo.title === title))
+    .filter((photo): photo is (typeof gallery)[number] => Boolean(photo))
+];
 
 export default function ShopPage() {
   return (
