@@ -48,8 +48,19 @@ function mergeGallery(cloudinaryPhotos: GalleryItem[], localPhotos: GalleryItem[
 
 export default async function Home() {
   const cloudinaryPhotos = await getPublishedCloudinaryPhotos();
+  const featuredCloudinaryPhotos: GalleryItem[] = [
+    {
+      src: "https://res.cloudinary.com/ptgwbnv7/image/upload/v1795185054/NIK_0717_edited_edited.jpg",
+      width: 5333,
+      height: 4000,
+      category: "architecture-heritage",
+      title: "Sajjangarh Monsoon Palace, Udaipur",
+      alt: "Sajjangarh Monsoon Palace perched on the green Aravalli hills above Udaipur, Rajasthan, beneath a dramatic blue sky.",
+      isHero: false
+    }
+  ];
   // Cloudinary items take priority; local assets fill gaps without duplicating the same image.
-  const allGallery = mergeGallery(cloudinaryPhotos, gallery);
+  const allGallery = mergeGallery([...featuredCloudinaryPhotos, ...cloudinaryPhotos], gallery);
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
